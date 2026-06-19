@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@source "../**/*.{ts,tsx}";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-deep: #07111F;
+  --color-panel: #0D1726;
+  --color-panel-elevated: #111C2E;
+  --color-panel-hover: #162033;
+  --color-border: #24344D;
+  --color-border-light: #2A3D5A;
+  --color-blue: #2F7DF6;
+  --color-blue-glow: #3B8AFF;
+  --color-blue-dim: #1E5DBF;
+  --color-green: #20C997;
+  --color-green-dim: #1A7F62;
+  --color-red: #FF4D4F;
+  --color-red-dim: #CC3D3F;
+  --color-yellow: #F5B942;
+  --color-yellow-dim: #C49435;
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #AAB7C4;
+  --color-text-muted: #6B7A90;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--color-deep);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-panel); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-border-light); }
+
+::selection { background: rgba(47, 125, 246, 0.3); color: var(--color-text-primary); }
+*:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 2px; }
+
+.glow-blue { box-shadow: 0 0 20px rgba(47, 125, 246, 0.15), 0 0 60px rgba(47, 125, 246, 0.05); }
+.glow-green { box-shadow: 0 0 20px rgba(32, 201, 151, 0.15), 0 0 60px rgba(32, 201, 151, 0.05); }
+.glow-text { text-shadow: 0 0 20px rgba(47, 125, 246, 0.5); }
+
+.terminal-scanline { position: relative; }
+.terminal-scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.03) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.card-hover { transition: all 0.3s ease; }
+.card-hover:hover {
+  border-color: var(--color-blue);
+  box-shadow: 0 0 30px rgba(47, 125, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+.gradient-border { position: relative; }
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #2F7DF6, #20C997, #2F7DF6);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
